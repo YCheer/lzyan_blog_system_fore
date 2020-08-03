@@ -1,15 +1,15 @@
 <template>
   <div>
-    <el-menu default-active="0" class="el-menu-vertical" unique-opened="true">
+    <el-menu default-active="0" class="el-menu-vertical" :unique-opened="true">
       <!-- 遍历菜单内容 -->
       <template v-for="(item,index) in menuList">
         <router-link :to="item.path" v-if="!item.children&&!item.hidden" :key="index">
-          <el-menu-item :index="index">
+          <el-menu-item :index="index+''">
             <i :class="item.icon"></i>
             <span slot="title">{{item.name}}</span>
           </el-menu-item>
         </router-link>
-        <el-submenu v-if="item.children&&!item.hidden" :key="index" :index="index">
+        <el-submenu v-if="item.children&&!item.hidden" :key="index" :index="index+''">
           <template slot="title">
             <i :class="item.icon"></i>
             <span>{{item.name}}</span>
@@ -41,7 +41,7 @@ export default {
   mounted() {
     let menuList = routes[0]
     this.menuList = menuList.children
-    console.log(menuList.children)
+    // console.log(menuList.children)
   },
 }
 </script>

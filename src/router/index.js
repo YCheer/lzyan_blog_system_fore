@@ -166,7 +166,7 @@ export const routes = [
     },
     {
         path: '/login',
-        component: login
+        component: login,
     }
 ];
 

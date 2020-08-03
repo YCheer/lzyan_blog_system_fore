@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div class="content-title-box">这里是右边内容</div>
+    <div class="content-title-box" v-text="$route.name"></div>
     <div class="content-container-box">
       <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
-export default {}
+export default {
+  mounted() {}
+}
 </script>
-
 <style>
 .content-title-box {
   padding: 10px;
@@ -17,7 +18,6 @@ export default {}
 }
 
 .content-container-box {
-
   padding: 10px;
 }
 </style>

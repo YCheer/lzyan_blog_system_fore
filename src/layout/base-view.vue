@@ -19,6 +19,22 @@
     </el-container>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    //动态设置侧边菜单的高度
+    let leftMenuBox = document.getElementById('left-menu-list-box')
+    let adminHeaderBox = document.getElementById('admin-header-box')
+    let dy = window.innerHeight - adminHeaderBox.offsetHeight
+    // console.log('dy-->' + dy)
+    if (leftMenuBox && adminHeaderBox) {
+      leftMenuBox.style.height = dy + 'px'
+    }
+  },
+}
+</script>
+
 <style>
 /* #left-menu-list-box .el-menu {
   border-right: none;
@@ -38,18 +54,3 @@
   padding: 20px;
 }
 </style>
-
-<script>
-export default {
-  mounted() {
-    //动态设置侧边菜单的高度
-    let leftMenuBox = document.getElementById('left-menu-list-box')
-    let adminHeaderBox = document.getElementById('admin-header-box')
-    let dy = window.innerHeight - adminHeaderBox.offsetHeight
-    console.log('dy-->' + dy)
-    if (leftMenuBox && adminHeaderBox) {
-      leftMenuBox.style.height = dy + 'px'
-    }
-  },
-}
-</script>
