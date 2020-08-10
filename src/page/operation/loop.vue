@@ -69,7 +69,7 @@
             <el-form-item label="封面">
               <el-upload
                 class="avatar-uploader"
-                action="/admin/image"
+                action="/admin/image/loop"
                 :show-file-list="false"
                 :on-success="uploadSuccess"
                 :before-upload="beforeUpload()"
@@ -195,7 +195,7 @@ export default {
         //上传成功
         //回显图片
         this.loop.imageUrl =
-          'http://127.0.0.1:8088/portal/image/' + response.data.id
+          this.blog_constants.baseUrl + '/portal/image/' + response.data.id
         this.$message.success(response.message)
       } else {
         this.$message.error(response.message)
@@ -209,6 +209,8 @@ export default {
     },
     showAddLoop() {
       this.loopDialogShow = true
+      this.loopEditorCommitText = '添 加'
+      this.loopEditorTitle = '添加轮播图'
     },
     deleteItem(item) {
       this.deleteLoopId = item.id
@@ -226,8 +228,9 @@ export default {
     edit(item) {
       //数据回显
       this.loopEditorCommitText = '修改'
-      this.loopDialogShow = true
       this.loopEditorTitle = '修改轮播图信息'
+
+      this.loopDialogShow = true
       this.loop.id = item.id
       this.loop.title = item.title
       this.loop.state = item.state
