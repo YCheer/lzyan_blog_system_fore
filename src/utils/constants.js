@@ -1,4 +1,6 @@
 const baseUrl = 'http://localhost:8088'
-export default{
-    baseUrl
+const imageBaseUrl = baseUrl + '/portal/image/'
+export default {
+    baseUrl,
+    imageBaseUrl
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="settings-user-info-box">
     <div class="user-info-list-part">
-      <el-form label-width="100px" class="demo-ruleForm" v-if="userInfo!==null">
+      <el-form label-width="100px" class="demo-ruleForm" v-if="userInfo!==null" v-loading="loading">
         <el-form-item label="头像" class="user-info-avatar">
           <div class="user-avatar-container" @click="showAvatarDialog">
-            <el-image style="width: 65px; height: 65px" :src="userInfo.avatar" fit="cover"></el-image>
+            <el-avatar style="width: 65px; height: 65px" :src="userInfo.avatar" fit="cover"></el-avatar>
           </div>
         </el-form-item>
         <el-form-item label="用户ID">
@@ -21,7 +21,7 @@
           <el-input type="email" v-model="userInfo.sign" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="updateUserInfo">提交修改信息</el-button>
+          <el-button type="primary" @click="updateUserInfo">提交信息</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -49,6 +49,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       lastUserName: '',
       userInfo: null,
       showAvatarCutter: false,
@@ -63,7 +64,7 @@ export default {
       if (response.code === api.success_code) {
         this.$message.success(response.message)
         this.userInfo.avatar =
-          this.blog_constants.baseUrl+'/portal/image/' + response.data.id
+          this.blog_constants.baseUrl + '/portal/image/' + response.data.id
         console.log(this.userInfo.avatar)
       } else {
         this.$message.error(response.message)
@@ -113,6 +114,7 @@ export default {
       })
     },
     getUserInfo() {
+      this.loading = true
       api.checkToken().then((result) => {
         if (result.code === api.success_code) {
           this.userInfo = result.data
@@ -120,6 +122,7 @@ export default {
         } else {
           this.$message.error(result.message)
         }
+        this.loading = false
       })
     },
   },

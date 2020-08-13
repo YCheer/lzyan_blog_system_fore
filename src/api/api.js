@@ -132,3 +132,91 @@ export const updarteFriendLink = (link, linkId) => {
 export const deleteFriendLink = (linkId) => {
     return http.requestDelete('/admin/friend_link/' + linkId)
 }
+
+// 获取图片列表
+export const listImages = (page, size, original) => {
+    return http.requestGet('/admin/image/list/' + page + '/' + size + '?original=' + original)
+}
+
+// 发表文章
+export const postArticle = (article) => {
+    return http.requestPost('/admin/article', article)
+}
+
+// 发表草稿
+export const saveArticleDraft = (article) => {
+    return http.requestPost('/admin/article', article)
+}
+
+// 文章列表 
+export const listArticles = (page, size, state, keyword, categoryId) => {
+    return http.requestPost('/admin/article/list/' + page + '/' + size + '?state=' + state + '&categoryId=' + categoryId + '&keyword=' + keyword)
+}
+
+// 文章置顶 
+export const topArticle = (articleId) => {
+    return http.requestPut('/admin/article/top/' + articleId)
+}
+
+// 文章逻辑删除
+export const deleteArticlePretend = (articleId) => {
+    return http.requestDelete('/admin/article/' + articleId)
+}
+
+// 文章物理删除
+export const deleteArticleAbs = (articleId) => {
+    return http.requestPut('/admin/article/state/' + articleId)
+}
+
+
+// 获取单篇文章
+export const getArticleDetail = (articleId) => {
+    return http.requestGet('/admin/article/' + articleId)
+}
+
+// 发表草稿
+export const updateArticle = (articleId, article) => {
+    return http.requestPut('/admin/article/' + articleId, article)
+}
+
+// 获取评论列表
+export const listComment = (page, size) => {
+    return http.requestGet('/admin/comment/list/' + page + '/' + size)
+}
+
+
+// 删除评论
+export const deleteCommentById = (commentId) => {
+    return http.requestDelete('/admin/comment/' + commentId)
+}
+
+
+// 删除评论
+export const topComment = (commentId) => {
+    return http.requestPut('/admin/comment/top/' + commentId)
+}
+
+
+// 删除图片
+export const deleteImageById = (imageId) => {
+    return http.requestDelete('/admin/image/' + imageId)
+}
+
+
+// 获取文章数量
+export const getArticleCount = () => {
+    return http.requestGet('/admin/article/count')
+}
+
+//获取网站浏览总量
+export const getViewCount = () => {
+    return http.requestGet('/admin/web_size_info/view_count')
+}
+// 获取评论总量
+export const getCommentCount = () => {
+    return http.requestGet('/admin/comment/count')
+}
+// 获取用户的注册量
+export const getUserCount = () => {
+    return http.requestGet('/user/register_count')
+}

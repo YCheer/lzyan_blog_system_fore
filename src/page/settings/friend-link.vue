@@ -1,17 +1,14 @@
 <template>
   <div class="settings-friend-link-box">
-    <div class="friend-link-action-bar">
-      <el-button type="primary" @click="showFriendLinkDialog">添加友情链接</el-button>
-    </div>
     <div class="friend-link-list-box">
       <el-table :data="links" style="width: 100%" v-loading="loading">
         <el-table-column fixed prop="id" label="ID" width="250"></el-table-column>
-        <el-table-column label="链接名称" width="200">
+        <el-table-column label="链接名称" width="250">
           <template slot-scope="scope">
             <a class="friend-link-title" :href="scope.row.url" target="_blank">{{scope.row.name}}</a>
           </template>
         </el-table-column>
-        <el-table-column label="logo" width="200">
+        <el-table-column label="logo" width="250">
           <template slot-scope="scope">
             <el-image
               fit="cover"
@@ -49,6 +46,11 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <div class="friend-link-action-bar">
+      <el-button type="primary" @click="showFriendLinkDialog">添加链接</el-button>
+    </div>
+
     <div class="friend-link-dialog-box">
       <el-dialog :title="friendEditorTitle" :visible.sync="friendDialogShow" width="500px">
         <div>
@@ -285,5 +287,14 @@ export default {
   width: 60px;
   height: 40px;
   border: #dfdfdf dashed 1px;
+}
+
+.friend-link-action-bar {
+  margin: 25px;
+  float: right;
+}
+
+.friend-link-list-box .el-table {
+  min-height: 350px;
 }
 </style>

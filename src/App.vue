@@ -23,7 +23,11 @@ export default {}
   zoom: 1;
 }
 
-#app {
+/* #app {
   min-width: 1140px;
+} */
+
+a {
+  text-decoration: none;
 }
 </style>

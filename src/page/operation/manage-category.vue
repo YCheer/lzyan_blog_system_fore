@@ -1,5 +1,5 @@
 <template>
-  <div class="category-box">
+  <div class="category-box clear-fix">
     <div class="category-list-box">
       <el-table :data="categories" style="width: 100%" v-loading="loading">
         <el-table-column fixed prop="id" label="ID" width="200"></el-table-column>
@@ -41,7 +41,7 @@
       </el-table>
     </div>
     <div class="category-action-bar">
-      <el-button type="primary" @click="showAddCategory()">添加分类</el-button>
+      <el-button type="primary" @click="showAddCategory()" class="add-category-btn">添加分类</el-button>
     </div>
 
     <div class="category-dialog-box">
@@ -251,6 +251,7 @@ export default {
 }
 
 .category-action-bar {
-  margin: 10px 10px;
+  margin: 25px;
+  float: right;
 }
 </style>

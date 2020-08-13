@@ -1,6 +1,6 @@
 <template>
   <div class="settings-web-info-box">
-    <el-form label-width="100px" class="demo-ruleForm">
+    <el-form label-width="100px" v-loading="loading">
       <el-form-item label="网站名称">
         <el-input type="text" v-model="webSizeTitle"></el-input>
       </el-form-item>
@@ -22,6 +22,7 @@ import * as api from '../../api/api'
 export default {
   data() {
     return {
+      loading: false,
       webSizeTitle: '',
       keywords: '',
       desrctption: '',
@@ -83,6 +84,7 @@ export default {
       }
     },
     getWebSizeInfo() {
+      this.loading = true
       api.getSeoInfo().then((result) => {
         if (result.code === api.success_code) {
           this.keywords = result.data['web_size_keywords']
@@ -92,6 +94,7 @@ export default {
         } else {
           this.$message.error(result.message)
         }
+        this.loading = false
       })
     },
     getWebSizeTitle() {

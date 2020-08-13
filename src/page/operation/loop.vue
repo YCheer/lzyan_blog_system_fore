@@ -1,8 +1,5 @@
 <template>
   <div class="loop-box">
-    <div class="loop-action-bar">
-      <el-button type="primary" @click="showAddLoop()">添加轮播图</el-button>
-    </div>
     <div class="loop-list-box">
       <el-table :data="loops" style="width: 100%" v-loading="loading">
         <el-table-column fixed prop="id" label="ID" width="250"></el-table-column>
@@ -45,6 +42,11 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <div class="loop-action-bar">
+      <el-button type="primary" @click="showAddLoop()">添加轮播图</el-button>
+    </div>
+
     <div class="loop-dialog-box">
       <el-dialog :title="loopEditorTitle" :visible.sync="loopDialogShow" width="500px">
         <div>
@@ -286,5 +288,14 @@ export default {
   width: 178px;
   height: 178px;
   border-radius: 5px;
+}
+
+.loop-action-bar {
+  margin: 25px;
+  float: right;
+}
+
+.loop-list-box .el-table {
+  min-height: 350px;
 }
 </style>

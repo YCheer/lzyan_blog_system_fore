@@ -133,6 +133,13 @@ export const routes = [
                         component: webSizeInfo
                     },
                     {
+                        path: 'info',
+                        name: '管理员信息',
+                        hidden: false,
+                        icon: 'el-icon-info',
+                        component: info
+                    },
+                    {
                         path: 'friend-link',
                         name: '友情链接',
                         hidden: false,
@@ -145,14 +152,8 @@ export const routes = [
                         hidden: false,
                         icon: 'el-icon-message',
                         component: email
-                    },
-                    {
-                        path: 'info',
-                        name: '用户信息',
-                        hidden: false,
-                        icon: 'el-icon-info',
-                        component: info
                     }
+
                 ]
             }
         ]

@@ -22,7 +22,7 @@
         <el-table-column prop="userName" label="用户名" width="80"></el-table-column>
         <el-table-column label="头像" width="70">
           <template slot-scope="scope">
-            <el-avatar :size="medium" :src="scope.row.avatar"></el-avatar>
+            <el-avatar size="medium" :src="scope.row.avatar"></el-avatar>
           </template>
         </el-table-column>
         <el-table-column prop="email" label="用户邮箱" width="200"></el-table-column>
@@ -94,7 +94,7 @@
       </el-dialog>
       <el-dialog title="密码重置" :visible.sync="resetPasswordShow" width="400px">
         <div class="reset-password-box">
-          <div class="reset-tips-text">修改用户:  {{targetResetUserName}}  的密码</div>
+          <div class="reset-tips-text">修改用户: {{targetResetUserName}} 的密码</div>
           <el-form label-width="80px" class="demo-ruleForm" size="medium">
             <el-form-item label="新密码" prop="pass">
               <el-input type="password" v-model="newPasswordValue" autocomplete="off"></el-input>
@@ -216,9 +216,13 @@ export default {
 }
 
 .reset-tips-text {
-    font-size: 15px;
-    font-weight: 500;
+  font-size: 15px;
+  font-weight: 500;
   margin-left: 15px;
   margin-bottom: 15px;
+}
+
+.list-box .el-table {
+  min-height: 350px;
 }
 </style>

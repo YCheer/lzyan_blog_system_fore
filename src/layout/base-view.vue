@@ -4,17 +4,13 @@
       <el-header id="admin-header-box">
         <topHeader></topHeader>
       </el-header>
-      <el-container>
-        <el-aside id="left-menu-list-box" width="200px">
+      <el-container class="main-container">
+        <el-aside id="left-menu-list-box" width="220px">
           <leftMenu></leftMenu>
         </el-aside>
-        <el-container>
-          <el-main>
-            <div class="content">
-              <router-view></router-view>
-            </div>
-          </el-main>
-        </el-container>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -36,6 +32,7 @@ export default {
 </script>
 
 <style>
+/* 菜单栏的boder */
 /* #left-menu-list-box .el-menu {
   border-right: none;
 } */
@@ -52,5 +49,12 @@ export default {
 
 .el-main {
   padding: 20px;
+}
+
+.main-container {
+  position: absolute;
+  top: 60px;
+  bottom: 0px;
+  width: 100%;
 }
 </style>
