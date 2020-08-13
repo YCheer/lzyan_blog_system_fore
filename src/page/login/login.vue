@@ -20,7 +20,7 @@
                 <el-input v-model="blogUser.userName" placeholder="用户名/邮箱"></el-input>
               </el-form-item>
               <el-form-item label="密码" required>
-                <el-input type="password" v-model="blogUser.password" placeholder="请输入密码"></el-input>
+                <el-input type="password" v-model="originalPassword" placeholder="请输入密码"></el-input>
               </el-form-item>
               <el-form-item label="验证码" required>
                 <el-input
@@ -44,10 +44,12 @@
 </template>
 <script>
 import { doLogin } from '../../api/api'
+import { hex_md5 } from '../../utils/md5'
 
 export default {
   data() {
     return {
+      originalPassword: '',
       blogUser: {
         userName: '',
         password: '',
@@ -73,7 +75,7 @@ export default {
         this.toastError('账号不可以为空')
         return
       }
-      if (this.blogUser.password === '') {
+      if (this.originalPassword === '') {
         this.toastError('密码不能为空')
         return
       }
@@ -81,6 +83,7 @@ export default {
         this.toastError('验证码不能为空')
         return
       }
+      this.blogUser.password = hex_md5(this.originalPassword)
       // 向服务器提交数据
       doLogin(
         this.loginInfo.verifycode,

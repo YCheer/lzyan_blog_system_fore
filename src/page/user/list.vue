@@ -112,6 +112,7 @@
 <script>
 import * as api from '../../api/api'
 import * as dateUtils from '../../utils/date'
+import { hex_md5 } from '../../utils/md5'
 
 export default {
   data() {
@@ -131,13 +132,28 @@ export default {
       deleteUserName: '',
       targetDeleteUserId: '',
       resetPasswordShow: false,
-
       newPasswordValue: '',
+      targetResetUserID: '',
       targetResetUserName: '',
     }
   },
   methods: {
-    doResetPassword() {},
+    doResetPassword() {
+      if (this.newPasswordValue === '') {
+        this.$message.error('新密码不能为空')
+        return
+      }
+      api
+        .resetPassword(this.targetResetUserID, hex_md5(this.newPasswordValue))
+        .then((result) => {
+          if (result.code === api.success_code) {
+            this.$message.success(result.message)
+          } else {
+            this.$message.error(result.error)
+          }
+          this.resetPasswordShow = false
+        })
+    },
     onPageChange(page) {
       this.pageNavigation.currentPage = page
       this.listUsers()
@@ -161,6 +177,7 @@ export default {
     },
     resetPassword(item) {
       this.resetPasswordShow = true
+      this.targetResetUserID = item.id
       this.targetResetUserName = item.userName
     },
     formatDate(dateStr) {

@@ -43,6 +43,8 @@ router.beforeEach((to, from, next) => {
     // 检查用户角色
     checkToken().then(result => {
       if (result.code === 20000) {
+        window.localStorage.setItem('avatar',result.data.avatar)
+        window.localStorage.setItem('userName',result.data.userName)
         // 成功 判断用户角色
         // 如果是管理员就放行
         // 如果是普通用户就跳转到门户

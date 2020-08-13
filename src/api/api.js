@@ -220,3 +220,14 @@ export const getCommentCount = () => {
 export const getUserCount = () => {
     return http.requestGet('/user/register_count')
 }
+
+// 用户退出登录
+export const doLogout = () => {
+    return http.requestGet('/user/logout')
+}
+
+
+// 管理员重置用户密码
+export const resetPassword = (userId, newPassword) => {
+    return http.requestPut('/user/reset-password/' + userId + '?password=' + newPassword)
+}

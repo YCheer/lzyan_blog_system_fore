@@ -30,4 +30,12 @@ export default {}
 a {
   text-decoration: none;
 }
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
 </style>
