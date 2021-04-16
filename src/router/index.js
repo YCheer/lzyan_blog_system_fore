@@ -22,6 +22,8 @@ const info = () => import("@/page/settings/info");
 const email = () => import("@/page/settings/email");
 const friendLink = () => import("@/page/settings/friend-link");
 const webSizeInfo = () => import("@/page/settings/websize-info");
+const systemLogs = () => import("@/page/settings/system-logs");
+
 //用户
 const list = () => import("@/page/user/list");
 // 布局
@@ -59,7 +61,7 @@ export const routes = [
                         path: 'manage-article',
                         name: '文章管理',
                         hidden: false,
-                        icon: 'el-icon-s-unfold',
+                        icon: 'el-icon-finished',
                         component: articleManage
                     },
                     {
@@ -152,6 +154,13 @@ export const routes = [
                         hidden: false,
                         icon: 'el-icon-message',
                         component: email
+                    },
+                    {
+                        path: 'system-logs',
+                        name: '系统日志',
+                        hidden: false,
+                        icon: 'el-icon-paperclip',
+                        component: systemLogs
                     }
 
                 ]

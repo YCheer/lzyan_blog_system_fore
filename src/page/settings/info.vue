@@ -63,8 +63,7 @@ export default {
       console.log(response)
       if (response.code === api.success_code) {
         this.$message.success(response.message)
-        this.userInfo.avatar =
-          this.blog_constants.baseUrl + '/portal/image/' + response.data.id
+        this.userInfo.avatar = response.data.id
         console.log(this.userInfo.avatar)
       } else {
         this.$message.error(response.message)

@@ -12,7 +12,7 @@
           <template slot-scope="scope">
             <el-image
               fit="cover"
-              :src="blog_constants.baseUrl+scope.row.logo"
+              :src="scope.row.logo"
               class="friend-links-image"
             ></el-image>
           </template>
@@ -75,7 +75,7 @@
             <el-form-item label="logo">
               <div class="friend-link-image-upload" @click="showLinkLogoDialog">
                 <i class="el-icon-plus" v-if="link.logo===''"></i>
-                <el-image v-else :src="blog_constants.baseUrl+link.logo"></el-image>
+                <el-image v-else :src="link.logo"></el-image>
               </div>
             </el-form-item>
           </el-form>
@@ -94,8 +94,8 @@
         @crop-upload-success="cropUploadSuccess"
         @crop-upload-fail="cropUploadFail"
         v-model="showLinkLogoCutter"
-        :width="300"
-        :height="300"
+        :width="200"
+        :height="200"
         url="/admin/image/link"
         img-format="png"
       ></avatar-upload>
@@ -176,7 +176,7 @@ export default {
       console.log(response)
       if (response.code === api.success_code) {
         this.$message.success(response.message)
-        this.link.logo = '/portal/image/' + response.data.id
+        this.link.logo = response.data.id
         console.log(this.userInfo.avatar)
       } else {
         this.$message.error(response.message)

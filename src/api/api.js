@@ -10,8 +10,8 @@ export const checkToken = () => {
 }
 
 // 登录
-export const doLogin = (verifyCode, verifyKey, blogUser) => {
-    return http.requestPost('/user/login/' + verifyCode + '/' + verifyKey + '?from=p_', blogUser)
+export const doLogin = (verifyCode, blogUser) => {
+    return http.requestPost('/user/login/' + verifyCode + '?from=p_', blogUser)
 }
 
 // 获取分类列表
@@ -230,4 +230,15 @@ export const doLogout = () => {
 // 管理员重置用户密码
 export const resetPassword = (userId, newPassword) => {
     return http.requestPut('/user/reset-password/' + userId + '?password=' + newPassword)
+}
+
+// 获取系统日志
+export const listSystemLogs = (page, size) => {
+    return http.requestGet('/admin/web_size_info/log_info/' + page + '/' + size)
+}
+
+
+// 获取系统日志
+export const deleteSystemLog = () => {
+    return http.requestDelete('/admin/web_size_info/log_info')
 }

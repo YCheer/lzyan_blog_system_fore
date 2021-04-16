@@ -1,4 +1,4 @@
-<template>
+cha<template>
   <div class="artilce-post-box">
     <!-- 标题 -->
     <div class="article-title-part margin-bottom-20">
@@ -34,16 +34,17 @@
           </el-select>
         </el-form-item>
         <el-form-item label="摘要" required>
-          <el-input type="textarea" :rows="3" placeholder="文章摘要" v-model="article.summary"></el-input>
+          <el-input
+            type="textarea"
+            :rows="3"
+            placeholder="文章摘要"
+            v-model="article.summary"
+          ></el-input>
         </el-form-item>
         <el-form-item label="封面" required>
           <div class="article-cover-selector" @click="showImageSelector">
             <i class="el-icon-plus" v-if="!article.cover"></i>
-            <el-image
-              fit="cover"
-              v-else
-              :src="blog_constants.baseUrl+'/portal/image/'+article.cover"
-            ></el-image>
+            <el-image fit="cover" v-el :src="article.cover"></el-image>
           </div>
         </el-form-item>
         <el-form-item label="标签" class="label-input-box" required>
@@ -53,7 +54,8 @@
             closable
             :disable-transitions="false"
             @close="deleteLabel(tag)"
-          >{{tag}}</el-tag>
+            >{{ tag }}</el-tag
+          >
           <el-input
             class="input-new-label"
             v-if="labelInputVisible"
@@ -63,11 +65,20 @@
             @keyup.enter.native="handleLabelInputConfirm"
           ></el-input>
           <el-button
-            v-if="!labelInputVisible&&!isEnough"
+            v-if="!labelInputVisible && !isEnough"
             class="button-new-tag"
             size="small"
             @click="showLabelInput"
-          >+ 标签</el-button>
+            >+ 标签</el-button
+          >
+        </el-form-item>
+        <el-form-item label="发布时间" required>
+          <el-date-picker
+            v-model="article.createTime"
+            type="datetime"
+            placeholder="选择日期时间"
+          >
+          </el-date-picker>
         </el-form-item>
       </el-form>
     </div>
@@ -75,14 +86,33 @@
     <div class="article-post-action-bar clear-fix">
       <div class="action-btn-container">
         <el-button plain @click="preView">全屏预览</el-button>
-        <el-button plain @click="saveArticleDraft" v-if="!disableDraftBtn">保存草稿</el-button>
-        <el-button plain @click="saveArticleDraft" v-else disabled>保存草稿</el-button>
+        <el-button
+          plain
+          type="warning"
+          @click="saveArticleDraft"
+          v-if="!disableDraftBtn"
+          >保存草稿</el-button
+        >
+        <el-button
+          plain
+          type="warning"
+          @click="saveArticleDraft"
+          v-else
+          disabled
+          >保存草稿</el-button
+        >
 
-        <el-button plain type="primary" @click="commitArticle">{{commitText}}</el-button>
+        <el-button plain type="primary" @click="commitArticle">{{
+          commitText
+        }}</el-button>
       </div>
     </div>
     <div class="article-post-dialog-box">
-      <el-dialog :visible.sync="isImageSelectorShow" width="500" class="image-picker-container">
+      <el-dialog
+        :visible.sync="isImageSelectorShow"
+        width="500"
+        class="image-picker-container"
+      >
         <div class="image-selector-box">
           <div class="image-action-bar">
             <el-upload
@@ -98,8 +128,12 @@
           </div>
           <div class="image-selector-list clear-fix">
             <el-radio-group v-model="selectedImageIndex">
-              <el-radio-button :label="index" v-for="(item,index) in images" :key="index">
-                <el-image fit="cover" :src="blog_constants.baseUrl+'/portal/image/'+item.url"></el-image>
+              <el-radio-button
+                :label="index"
+                v-for="(item, index) in images"
+                :key="index"
+              >
+                <el-image fit="cover" :src="item.url"></el-image>
               </el-radio-button>
             </el-radio-group>
           </div>
@@ -121,11 +155,23 @@
         </span>
       </el-dialog>
 
-      <el-dialog title="你确定要离开此页面吗？" :visible.sync="saveConfirmDialogShow" width="450px" class>
+      <el-dialog
+        title="你确定要离开此页面吗？"
+        :visible.sync="saveConfirmDialogShow"
+        width="450px"
+        class
+      >
         <span>系统可能不会保存填写的稿件信息哦</span>
         <span slot="footer" class="dialog-footer">
-          <el-button size="mini" type="danger" @click="saveConfirmDialogShow = false">取 消</el-button>
-          <el-button size="mini" type="primary" @click="toNextPage()">确 定</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="saveConfirmDialogShow = false"
+            >取 消</el-button
+          >
+          <el-button size="mini" type="primary" @click="toNextPage()"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
     </div>
@@ -244,7 +290,7 @@ export default {
         return
       }
       //处理标签
-      let tempLabels
+      let tempLabels = ''
       this.labels.forEach((item, index) => {
         tempLabels += item
         if (index !== this.labels.length - 1) {
@@ -316,11 +362,7 @@ export default {
       // 如果是封面则作为封面
       let item = this.images[this.selectedImageIndex]
       if (this.imageSelectFor === 'article') {
-        this.$refs.mdEditor.toolbar_left_addlink(
-          'no-link',
-          item.name,
-          this.blog_constants.baseUrl + '/portal/image/' + item.url
-        )
+        this.$refs.mdEditor.toolbar_left_addlink('no-link', item.name, item.url)
       } else if (this.imageSelectFor === 'cover') {
         console.log(this.selectedImageIndex)
         // 从数组里拿到当前选中的对象
@@ -369,6 +411,10 @@ export default {
       } else {
         this.labelInputVisible = false
       }
+      // 获取焦点
+      this.$nextTick(() => {
+        this.$refs.saveTapInput.$refs.input.focus()
+      })
     },
     listCategories() {
       api.listCategories().then((result) => {

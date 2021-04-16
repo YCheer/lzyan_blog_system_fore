@@ -56,7 +56,6 @@ export default {
       },
       loginInfo: {
         verifycode: '',
-        captcha_key: '',
       },
       captchaPath: '',
     }
@@ -85,11 +84,7 @@ export default {
       }
       this.blogUser.password = hex_md5(this.originalPassword)
       // 向服务器提交数据
-      doLogin(
-        this.loginInfo.verifycode,
-        this.loginInfo.captcha_key,
-        this.blogUser
-      ).then((result) => {
+      doLogin(this.loginInfo.verifycode, this.blogUser).then((result) => {
         // 处理登录结果 判断状态
         if (result.code == 20000) {
           // 如果是成功则跳转--->判断角色,如果是普通用户,就跳转到首页,如果是管理员就跳转到管理中心
@@ -111,16 +106,11 @@ export default {
       // 处理结果
     },
     updateVerifyCode() {
-      this.captchaPath =
-        '/user/captcha?captcha_key=' +
-        this.loginInfo.captcha_key +
-        '&random=' +
-        Date.parse(new Date())
+      this.captchaPath = '/user/captcha?&random=' + Date.parse(new Date())
     },
   },
   mounted() {
     // 检查是否登录,如果登录了跳转到别的页面
-    this.loginInfo.captcha_key = Date.parse(new Date())
     this.updateVerifyCode()
   },
 }

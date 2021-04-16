@@ -8,7 +8,7 @@
             <el-image
               fit="cover"
               class="image-manager-item"
-              :src="blog_constants.baseUrl+'/portal/image/'+scope.row.url"
+              :src="scope.row.url"
             ></el-image>
           </template>
         </el-table-column>

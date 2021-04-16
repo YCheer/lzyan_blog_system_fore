@@ -1,7 +1,7 @@
 <template>
   <div class="header-part clear-fix">
     <div class="header-left-box float-left">
-      <div class="header-logo">博客系统管理中心</div>
+      <div class="header-logo">lzyan.fun 博客系统管理中心</div>
     </div>
     <div class="header-right-box float-right">
       <div class="header-user-info clear-fix">
@@ -56,7 +56,7 @@ export default {
   mounted() {
     this.userName = window.localStorage.getItem('userName')
     this.avatar = window.localStorage.getItem('avatar')
-    console.log(this.avatar)
+    // console.log(this.avatar)
   },
 }
 </script>
@@ -83,6 +83,6 @@ export default {
 }
 
 .header-user-info {
-  margin-right: 30px;
+  margin-right: 50px;
 }
 </style>

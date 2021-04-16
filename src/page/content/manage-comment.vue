@@ -12,7 +12,7 @@
         <el-table-column label="用户" width="200">
           <template slot-scope="scope">
             <a href="#" class="comment-user-avatar clear-fix">
-              <el-avatar :src="blog_constants.baseUrl+'/portal/image/'+scope.row.userAvatar"></el-avatar>
+              <el-avatar :src="scope.row.userAvatar"></el-avatar>
               <span class="comment-user-name">{{scope.row.userName}}</span>
             </a>
           </template>

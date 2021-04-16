@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-box">
-    <div class="welcome-tps">欢迎使用lzyan博客系统</div>
+    <div class="welcome-tps">欢迎使用!</div>
     <div class="web-size-info margin-bottom-20">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -31,7 +31,8 @@
     </div>
     <div class="dashboard-bottom-box">
       <el-row :gutter="20">
-        <el-col :span="12">
+        <!-- 快捷操作 -->
+        <el-col :span="6">
           <div class="grid-content bg-purple">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
@@ -57,8 +58,8 @@
             </el-card>
           </div>
         </el-col>
-
-        <el-col :span="12">
+        <!-- 最新评论 -->
+        <el-col :span="9">
           <div class="grid-content bg-purple">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
@@ -80,10 +81,49 @@
                     <template slot-scope="scope">
                       <a href="#" class="comment-user-avatar clear-fix">
                         <el-avatar
-                          :src="blog_constants.baseUrl+'/portal/image/'+scope.row.userAvatar"
+                          :src="scope.row.userAvatar"
                         ></el-avatar>
                         <span class="comment-user-name">{{scope.row.userName}}</span>
                       </a>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+        <!-- 系统日志 -->
+        <el-col :span="9">
+          <div class="grid-content bg-purple">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span class="dashboard-car-title">系统日志</span>
+                <el-button
+                  style="float: right; padding: 3px 0"
+                  type="text"
+                  @click="toSystemLogMore"
+                >更多 >></el-button>
+              </div>
+              <div class="last-comment-list">
+                <el-table :data="systemLogs" style="width: 100%" v-loading="SystemLogLoading">
+                  <el-table-column label="访问地址">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.visitIp}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="访问用户">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.userName}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="访问时间">
+                    <template slot-scope="scope">
+                      <span>{{formatDate(scope.row.visitTime)}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="访问路径">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.visitUri}}</span>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -97,22 +137,35 @@
 </template>
 <script>
 import * as api from '../../api/api'
+import * as dateUtils from '../../utils/date'
+
 export default {
   data() {
     return {
       comments: [],
       loading: false,
+      SystemLogLoading: false,
       viewCount: 0,
       commentCount: 0,
       articleCount: 0,
       userCount: 0,
+      systemLogs: [],
     }
   },
   methods: {
+    toSystemLogMore() {
+      this.$router.push({
+        path: '/settings/system-logs',
+      })
+    },
     toCommentMore() {
       this.$router.push({
         path: '/content/manage-comment',
       })
+    },
+    formatDate(dateStr) {
+      let date = new Date(dateStr)
+      return dateUtils.formatDate(date, 'yyyy-MM-dd hh:mm:ss')
     },
     listCount() {
       api.getArticleCount().then((result) => {
@@ -141,7 +194,7 @@ export default {
     },
     listLastComment() {
       this.loading = true
-      api.listComment(1, 10).then((result) => {
+      api.listComment(1, 6).then((result) => {
         if (result.code === api.success_code) {
           this.comments = result.data.content
         } else {
@@ -150,18 +203,32 @@ export default {
         this.loading = false
       })
     },
+    listSystemLog() {
+      this.SystemLogLoading = true
+      api.listSystemLogs(1, 6).then((result) => {
+        // console.log(result)
+        if (result.code === api.success_code) {
+          this.systemLogs = result.data.content
+        } else {
+          this.$message.error(result.message)
+        }
+        this.SystemLogLoading = false
+      })
+    },
   },
   mounted() {
     this.listCount()
     this.listLastComment()
+    this.listSystemLog()
   },
 }
 </script>
 <style>
 .welcome-tps {
-  padding: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 5px;
   margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .dashboard-box {
@@ -217,6 +284,10 @@ export default {
 }
 
 .fast-way-item a {
+  color: #0793b3;
+}
+
+.last-comment-list a {
   color: #0793b3;
 }
 </style>

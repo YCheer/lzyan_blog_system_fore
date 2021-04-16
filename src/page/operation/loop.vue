@@ -196,8 +196,8 @@ export default {
       if (response.code === api.success_code) {
         //上传成功
         //回显图片
-        this.loop.imageUrl =
-          this.blog_constants.baseUrl + '/portal/image/' + response.data.id
+        console.log(response.data.id)
+        this.loop.imageUrl =response.data.id
         this.$message.success(response.message)
       } else {
         this.$message.error(response.message)
